@@ -103,6 +103,9 @@ char * iFormat(char string[])
  * This helper function will if we have the correct values for the required 
  * variables for I-Format instruction: opcode, rs, rt, and immediate
  * 
+ * Pre-Condition: rs, rt, and rd cannot access registers $k0, and $k1, registers $k0 and $k1 are 
+ * reserved for the operating system.
+ * 
  * Takes all four variables as arguments
  * 
  * Returns 1 if all variables are valid, 0 if otherwise.

@@ -90,6 +90,11 @@ char * rFormat(char string[])
  * This helper function will verify if we have the correct values for the variables
  * needed for the R-Format Instructions: rs, rt, rd, shamt, and funct.
  * 
+ * Pre-Condition: rs, rt, and rd cannot access registers $at, $k0, and $k1, as $at is 
+ * reserved for assembler and $k0 and $k1 are reserved for the operating system.
+ * Registers $gp, $sp, and $fp are also not accessable to R-Format Instructions, 
+ * as these registers are usually limited to I-Format Instructions.
+ * 
  * Takes all five variables as arugments
  * 
  * Returns 1 if all variables are valid, else 0.
