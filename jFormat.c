@@ -31,6 +31,9 @@ char * jFormat(char string[])
         opFunct = opChar[1];
     }
 
+    // Address should be a multiple of 4
+    address = address * 4;
+
     // Print J-Format Instruction to stdout
     printf("\t%s  %d\n", opFunct, address);
 
