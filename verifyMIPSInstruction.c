@@ -49,7 +49,7 @@ int verifyMIPSInstruction (int lineNum, char * instr)
     length = strlen(instr);
     if (length != INSTR_LENGTH)
     {
-        printError ("\t Error: Line %d does not have %d characters.\n",
+        printError ("\tError: Line %d does not have %d characters.\n",
                     lineNum, INSTR_LENGTH);
         return 0;
     }else 
@@ -58,7 +58,7 @@ int verifyMIPSInstruction (int lineNum, char * instr)
         {
             if(instr[k] != '0' && instr[k] != '1')
             {
-                printError("\t Error: The current line: %d, does not have valid MIPS instructions, specificially at index: %d, that character being: %c.\n", 
+                printError("\tError: The current line: %d, does not have valid MIPS instructions, specificially at index: %d, that character being: %c.\n", 
                     lineNum, k, instr[k]);
                 return 0;
             }

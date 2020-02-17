@@ -42,7 +42,6 @@
  *
  */
 
-#include <math.h>
 #include <stdio.h>
 #include "disassembler.h"
 
@@ -51,7 +50,7 @@ int binToDec(char string[], int begin, int end)
 	int powOfTwo = 1;
 	int k;
 	int decimal = 0 ;
-	if(end > 32 || begin < 0)
+	if(end > 31 || begin < 0)
 	{
 		printError("The position(s) for the function is not in the bounds.\n");
 		return -1;

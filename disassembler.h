@@ -18,7 +18,16 @@
 
 int binToDec (char string[], int begin, int end);
 int verifyMIPSInstruction (int lineNum, char string[]);
+int formatType (char string[]);
 
 char * getRegName (int regNbr);
+
+char * rFormat (char string[]);
+int verifyRformat(int rs, int rt, int rd, int shamt, int funct);
+
+char * iFormat(char string[]);
+int verifyIformat(int opcode, int rs, int rt, int immediate);
+
+char * jFormat(char string[]);
 
 #endif

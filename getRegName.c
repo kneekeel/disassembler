@@ -29,7 +29,13 @@
  * Author: Alyce Brady and Garrett Olson
  * Date:   2/10/99
  *
- * WARNING: This function is incomplete !!!!!!
+ * Modified by: Nikhil Sodemba
+ * Modification date: Feb, 12th, 2020
+ * 
+ * Modifications: 
+ *      i) Completed the regArray to include all of the mneomic names for registers 0-31.
+ *      ii) Returns the correct mnemonic name for given register number (passed in parameter).
+ *        
  */
 
 char * getRegName (int regNbr)
@@ -44,9 +50,12 @@ char * getRegName (int regNbr)
                 "$at",
                 "$v0","$v1",
                 "$a0","$a1","$a2","$a3",
-                /* REGISTERS ARE MISSING !!! */
+                "$t0", "$t1", "$t2", "$t3", "$t4",
+                "$t5", "$t6", "$t7",
+                "$s0", "$s1", "$s2", "$s3", "$s4",
+                "$s5", "$s6", "$s7",
+                "$t8", "$t9", "$k0", "$k1", "$gp",
+                "$sp", "$fp", "$ra"
         };
- 
-        /* DOES NOT RETURN CORRECT VALUE !!! */
-        return "This is not the correct return value.";
+        return regArray[regNbr];
 }

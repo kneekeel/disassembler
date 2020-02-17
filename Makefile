@@ -70,12 +70,15 @@ disassembler:	disassembler.h \
     		verifyMIPSInstruction.c \
 		binToDec.c \
 		getRegName.c \
+		rFormat.c \
+		iFormat.c \
+		jFormat.c \
 		printDebug.c \
 		printError.c \
 		same.c \
 		disassembler.c
 		$(GCC) process_arguments.c verifyMIPSInstruction.c binToDec.c \
-		    same.c getRegName.c \
+		    same.c getRegName.c rFormat.c iFormat.c jFormat.c \
 		    printDebug.c printError.c disassembler.c -o disassembler
 
 clean: 

@@ -1,0 +1,154 @@
+rFormat.txt
+Line 1: 00000010010010000100000000100000
+	Length: 32
+	The opcode is: 0
+	R-Format.
+	add  $t0, $s2, $t0
+	Valid R-Format Instruction!
+
+Line 2: 00000001001010101000000000101010
+	Length: 32
+	The opcode is: 0
+	R-Format.
+	slt  $s0, $t1, $t2
+	Valid R-Format Instruction!
+
+Line 3: 00000000000010110100000010000000
+	Length: 32
+	The opcode is: 0
+	R-Format.
+	sll  $t0, $t3, 2
+	Valid R-Format Instruction!
+
+Line 4: 00000000000011100010000111000010
+	Length: 32
+	The opcode is: 0
+	R-Format.
+	srl  $a0, $t6, 7
+	Valid R-Format Instruction!
+
+Line 5: 00000011111000000000000000001000
+	Length: 32
+	The opcode is: 0
+	R-Format.
+	jr  $ra
+	Valid R-Format Instruction!
+
+iFormat.txt
+Line 1: 10001101001010000000010010110000
+	Length: 32
+	The opcode is: 35
+	I-Format.
+	lw  $t0, 1200($t1)
+	Valid I-Format Instruction.
+
+Line 2: 10101101001010000000010010110000
+	Length: 32
+	The opcode is: 43
+	I-Format.
+	sw  $t0, 1200($t1)
+	Valid I-Format Instruction.
+
+Line 3: 10101101001010001000010010110000
+	Length: 32
+	The opcode is: 43
+	I-Format.
+	sw  $t0, -1200($t1)
+	Valid I-Format Instruction.
+
+Line 4: 10001101010101010101010101010101
+	Length: 32
+	The opcode is: 35
+	I-Format.
+	lw  $s5, 21845($t2)
+	Valid I-Format Instruction.
+
+jFormat.txt
+Line 1: 00001000000000000000000100000001
+	Length: 32
+	The opcode is: 2
+	J-Format.
+	j  257
+	Valid J-Format Instruction.
+
+Line 2: 00001100000001010110000010100011
+	Length: 32
+	The opcode is: 3
+	J-Format.
+	jal  352419
+	Valid J-Format Instruction.
+
+userTest.txt 
+Line 1: 010101010101010101010101010101011
+	Length: 33
+	Error: Line 1 does not have 32 characters.
+	Error: Invalid MIPS Instruction at line: 1.
+
+Line 2: 01010101010234010101010101010101
+	Length: 32
+	Error: The current line: 2, does not have valid MIPS instructions, specificially at index: 11, that character being: 2.
+	Error: Invalid MIPS Instruction at line: 2.
+
+Line 3: 11111001010101010101010101010101
+	Length: 32
+	The opcode is: 62
+	Opcode Error: Invalid opcode instruction, at line: 3.
+
+Line 4: 00000001000010010101000000100000
+	Length: 32
+	The opcode is: 0
+	R-Format.
+	add  $t2, $t0, $t1
+	Valid R-Format Instruction!
+
+Line 5: 00000000100001010011000000100010
+	Length: 32
+	The opcode is: 0
+	R-Format.
+	sub  $a2, $a0, $a1
+	Valid R-Format Instruction!
+
+Line 6: 00000000100000010001000000001000
+	Length: 32
+	The opcode is: 0
+	R-Format.
+	Error: Invalid R-Format Instruction, in variable(s) at line: 6.
+
+Line 7: 00010001000010010000000010001000
+	Length: 32
+	The opcode is: 4
+	I-Format.
+	beq  $t0, $t1, 136
+	Valid I-Format Instruction.
+
+Line 8: 10101100100001000000100010000000
+	Length: 32
+	The opcode is: 43
+	I-Format.
+	sw  $a0, 2176($a0)
+	Valid I-Format Instruction.
+
+Line 9: 00111100010001000000100000000000
+	Length: 32
+	The opcode is: 15
+	I-Format.
+	Error: Invalid I-Format Instruction, in variable(s) at line: 9.
+
+Line 10: 00001000000000001001011000000100
+	Length: 32
+	The opcode is: 2
+	J-Format.
+	j  38404
+	Valid J-Format Instruction.
+
+Line 11: 00001101000001000000000000100100
+	Length: 32
+	The opcode is: 3
+	J-Format.
+	jal  17039396
+	Valid J-Format Instruction.
+
+Line 12: 11110100100001000000000100001000
+	Length: 32
+	The opcode is: 61
+	Opcode Error: Invalid opcode instruction, at line: 12.

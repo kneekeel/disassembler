@@ -1,9 +1,22 @@
 /*
  * Main file for Disassembler project. 
  * 
- * Currently, includes nothing -- expected changes to be made throughout
- *      the progress of the project. 
- * 
+ * This program is the main file for the disassemlber program. 
+ * The program will take in a file, or read in lines from command line if there is no file
+ * in the input. User can specify whether to turn debug mode on/off using 1 || 0, in the 
+ * command line.
+ * The file(s) intended for this program are machine code, where each MIPS Instruction is 32-bits long, 
+ * each line of instruction should consist of 0's and 1's, if the instruction doesn't satisfy both 
+ * condiditions, the program will execute the proper error to stderr. 
+ * The program will validate each MIPS Instructions' opcode and then determine which format type the instruction 
+ * belongs to: R-Format, I-Format, and J-Format. The formatType(...) function will determine the 
+ * format type for the instruction, the logic is stated in the function declaration and body. 
+ * Once, the program determines which format type the instruction belongs to, it will call the 
+ * respective format type helper function to determine the validity of the instruction, using one
+ * of the helper functions: rFormat(...), iFormat(...), jFormat(...).
+ * Each function declaration (rFormat.c, iFormat.c, jFormat.c) provides details to the function(s).
+ * Once, a valid MIPS Instruction is verified, the program will print out the resulting instruction 
+ * to stdout. Turn off Debugging mode, to view a concise output of the program.
  * 
  * Author: Nikhil Sodemba
  * 
@@ -50,40 +63,77 @@ int main (int argc, char *argv[])
         if (buffer[length - 1] == '\r')
             buffer[--length] = '\0';    
         printf ("\nLine %d: %s\n", lineNum, buffer);
-        printDebug ("\t Length: %d\n", length);
+        printDebug ("\tLength: %d\n", length);
 
-        int resultMIPS = verifyMIPSInstruction(lineNum, buffer);
-        printf("\t The result of the MIPS verification was: ");
-        if (resultMIPS == 0)
+        // Verify whether or not, the current line contains valid MIPS Instruction
+        int MIPSresult = verifyMIPSInstruction(lineNum, buffer);
+        if (MIPSresult == 0)    // Invalid MIPS Instruction
         {
-            printf("Not valid.\n");
-        }else
+            printError("\tError: Invalid MIPS Instruction at line: %d.\n", lineNum);
+        }
+        else    // Valid MIPS Instruction
         {
-            /* Once the MIPS Instructions receive a vaild MIPS instruction, the program will
-             * calculate the decimal number based on the instructions and the two parameters
-             * for the bounds in binToDec function call. Currently, the program will only test
-             * one Decimal calculation, although it could easily be structured to return multiple
-             * conversions, even allowing the user to input the numbers for the start and end 
-             * positions. 
-             */
-            printf("Valid! Calculating Decimal number for random start and end positions...\n");
-            int result = binToDec(buffer, 2,8);
-            /* Test cases for the binToDec function, testing for bounds on the position. */
-            /* int result = binToDec(buffer, -1, 18); */
-            /* int result = binToDec(buffer, 3, 33); */
-            if (result == -1)
+            int formatResult = formatType(buffer);
+            // R-Format
+            if(formatResult == 0)   // Valid R-Format Opcode
             {
-                printf("\t Invalid position(s), when calculating corresponding decimal number.\n");
-            }
-            else 
-            {
-                if (result > 127)
+                printDebug("\tR-Format.\n");
+                char * invalid = "Invalid";   
+                char * result;
+                result = rFormat(buffer);
+                
+                // Handle error response, when R-Format variables are invalid
+                if(strcmp(invalid, result) == SAME)     // Invalid R-Format Instruction
                 {
-                    printf("\t The decimal value cannot be represented in ascii conversion.\n");
-                    printf("\t The decimal value is: %d\n", result);
+                    printError("\tError: Invalid R-Format Instruction, in variable(s) at line: %d.\n", lineNum);
                 }
-                printf("\t The decimal value is: %d\n", result);
-                printf("\t The character for the decimal value is: %c\n", result);
+                else    // Valid R-Format Instruction, print statement in rFormat.c for instruction
+                {
+                    printDebug("\tValid R-Format Instruction!\n");
+                }
+            }
+            // I-Format
+            else if(formatResult == 1) 
+            {
+                printDebug("\tI-Format.\n");
+                char * invalid = "Invalid";
+                char * result;
+                result = iFormat(buffer);
+
+                // Handle error response, when I-Format variables are invalid
+                if(strcmp(invalid, result) == SAME)     // Invalid I-Format Instruction 
+                {
+                    printError("\tError: Invalid I-Format Instruction, in variable(s) at line: %d.\n", lineNum);
+                }
+                else    // Valid I-Format Instruction, print statement in iFormat.c for instruction
+                {
+                    printDebug("\tValid I-Format Instruction.\n");
+                }
+                
+            }
+            // J-Format
+            else if(formatResult == 2)
+            {
+                printDebug("\tJ-Format.\n");
+                char * valid = "Valid";
+                char * result;
+                result = jFormat(buffer);
+
+                // Handle response from J-Format, there should be no error, but I have provided an error
+                // handler just in case something were to go wrong.
+                if(strcmp(valid, result) == SAME)   // jFormat.c will print Instruction to stdout
+                {
+                    printDebug("\tValid J-Format Instruction.\n");
+                }
+                else
+                {
+                    printError("\tError: Invalid J-Format Instruction, at line: %d.\n", lineNum);
+                } 
+            }
+            // Invalid opcode 
+            else if(formatResult == -1)
+            {
+                printError("\tOpcode Error: Invalid opcode instruction, at line: %d.\n", lineNum);
             }
         }
     }
@@ -91,4 +141,49 @@ int main (int argc, char *argv[])
     /* End-of-file encountered; close the file. */
     fclose (fptr);
     return 0;
+}
+
+
+/**
+ * This helper function will determine the opcode (first 6 bits) for 
+ * the instruction. Returns one of the format types: R-Format, I-Format, or J-Format.
+ * 
+ * Takes singular MIPS Instruction as argument in parameter. 
+ * 
+ * Returns 0 for R-format, 1 for I-Format and 2 for J-Format, 
+ * returns -1 if the opcode is invalid and print appropiate error to stderr.
+ * 
+ */
+int formatType(char string[])
+{
+    // All I-Format opcode instructions
+    int iFormatOptions[] = {4,5,8,9,10,11,12,13,15,35,43};
+    int k; // Increment value for looping through iFormatOptions array
+
+    // Determines the opcode value, using the binToDec function for the first 6-bits.
+    int opcode = binToDec(string,0,5);
+    printDebug("\tThe opcode is: %d\n", opcode);
+    // R-Format Instructions - opcode = 0
+    if (opcode == 0)
+    {
+        return 0;
+    }
+    // J-Format Instructions - opcode = 2 || 3
+    else if(opcode == 2 || opcode == 3)
+    {
+        return 2;
+    }
+    // I-Format if otherwise, or possible error if opcode not valid I-Format option. 
+    else
+    {
+        for(k = 0; k < 11; k++)
+        {
+            // Valid I-Format Instruction
+            if(iFormatOptions[k]==opcode)
+            {
+                return 1;
+            }
+        }
+    }
+    return -1;
 }
