@@ -68,14 +68,14 @@ Line 1: 00001000000000000000000100000001
 	Length: 32
 	The opcode is: 2
 	J-Format.
-	j  257
+	j  1028
 	Valid J-Format Instruction.
 
 Line 2: 00001100000001010110000010100011
 	Length: 32
 	The opcode is: 3
 	J-Format.
-	jal  352419
+	jal  1409676
 	Valid J-Format Instruction.
 
 userTest.txt 
