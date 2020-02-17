@@ -116,3 +116,5 @@ The userText.txt file contains 12 lines of MIPS Instruction Machine Code. The fi
         Length: 32
         The opcode is: 61
         Opcode Error: Invalid opcode instruction, at line: 12.
+
+Alternatively, you can see the output of each input file in the directory in the outputAllFile.txt file. Feel free to experiment with new files of your own, or to edit any existing file and testing it.
