@@ -103,8 +103,7 @@ char * iFormat(char string[])
  * This helper function will if we have the correct values for the required 
  * variables for I-Format instruction: opcode, rs, rt, and immediate
  * 
- * Pre-Condition: rs, rt, and rd cannot access registers $k0, and $k1, registers $k0 and $k1 are 
- * reserved for the operating system.
+ * Disclaimer: rs and rt can access all registers.
  * 
  * Takes all four variables as arguments
  * 
@@ -120,15 +119,6 @@ int verifyIformat(int opcode, int rs, int rt, int immediate)
         return 0;
     }
     if(rt > 31)
-    {
-        return 0;
-    }
-    // registers $k0 and $k1 are reserved by operating system
-    if(rs == 26 || rt == 26)
-    {
-        return 0;
-    }
-    if(rs == 27 || rt == 27)
     {
         return 0;
     }

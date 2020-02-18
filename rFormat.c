@@ -90,10 +90,9 @@ char * rFormat(char string[])
  * This helper function will verify if we have the correct values for the variables
  * needed for the R-Format Instructions: rs, rt, rd, shamt, and funct.
  * 
- * Pre-Condition: rs, rt, and rd cannot access registers $at, $k0, and $k1, as $at is 
- * reserved for assembler and $k0 and $k1 are reserved for the operating system.
- * Registers $gp, $sp, and $fp are also not accessable to R-Format Instructions, 
- * as these registers are usually limited to I-Format Instructions.
+ * Disclaimer: Program can change value of register $zero, logic has not been applied 
+ * in order for manipulation of this register. Program also allows rs, rt, and rd 
+ * to access all registers.
  * 
  * Takes all five variables as arugments
  * 
@@ -172,37 +171,6 @@ int verifyRformat(int rs, int rt, int rd, int shamt, int funct)
         {
             return 0;
         }
-    }
-
-    // Ensure that rs, rt, and rd are not directed to registers - $gp, $sp, $fp 
-    // Usually, these registers are for I-format instructions 
-    if(rs == 28 || rt == 28 || rd == 28)
-    {
-        return 0;
-    }
-    if(rs == 29 || rt == 29 || rd == 29)
-    {
-        return 0;
-    }
-    if(rs == 30 || rt == 30 || rd == 30)
-    {
-        return 0;
-    }
-
-    // Ensure that rs, rt, and rd are not direct to registers - $at, $k0, and $k1 
-    // $at register is reserved for assembler 
-    // $k0 and $k1 are reserved by operating system
-    if(rs == 1 || rt == 1 || rd == 1)
-    {
-        return 0;
-    }
-    if(rs == 26 || rt == 26 || rd == 26)
-    {
-        return 0;
-    }
-    if(rs == 27 || rt == 27 || rd == 27)
-    {
-        return 0;
     }
     
     // Return 1, all variables are valid for R-Format Instructions
