@@ -108,12 +108,12 @@ Line 5: 00000000100001010011000000100010
 	sub  $a2, $a0, $a1
 	Valid R-Format Instruction!
 
-Line 6: 00000000100000010001000000001000
+Line 6: 00000000100000010001000011001000
 	Length: 32
 	The opcode is: 0
 	R-Format.
 	Error: Invalid R-Format Instruction, in variable(s) at line: 6.
-
+	
 Line 7: 00010001000010010000000010001000
 	Length: 32
 	The opcode is: 4
