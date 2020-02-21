@@ -53,7 +53,7 @@ Line 3: 10101101001010001000010010110000
 	Length: 32
 	The opcode is: 43
 	I-Format.
-	sw  $t0, -1200($t1)
+	sw  $t0, 33968($t1)
 	Valid I-Format Instruction.
 
 Line 4: 10001101010101010101010101010101
@@ -61,6 +61,13 @@ Line 4: 10001101010101010101010101010101
 	The opcode is: 35
 	I-Format.
 	lw  $s5, 21845($t2)
+	Valid I-Format Instruction.
+
+Line 5: 00100000100001011111111111111111
+	Length: 32
+	The opcode is: 8
+	I-Format.
+	addi  $a1, $a0, 65535
 	Valid I-Format Instruction.
 
 jFormat.txt

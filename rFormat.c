@@ -167,10 +167,6 @@ int verifyRformat(int rs, int rt, int rd, int shamt, int funct)
         {
             return 0;
         }       
-        if(rs != 31)        // jr returns the last register ($ra) -> rs == 31 for jr
-        {
-            return 0;
-        }
     }
     
     // Return 1, all variables are valid for R-Format Instructions

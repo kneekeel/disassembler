@@ -34,7 +34,7 @@ char * iFormat(char string[])
     int opcode = binToDec(string, 0, 5);
     int rs = binToDec(string, 6, 10);
     int rt = binToDec(string, 11, 15);
-    int immediate = binToDec(string, 17, 31);   // Will be considering this as a signed binary integer
+    int immediate = binToDec(string, 16, 31);   
 
     // Verify if the given variables are valid for I-Format Instruction 
     int verification = verifyIformat(opcode, rs, rt, immediate);
@@ -44,12 +44,6 @@ char * iFormat(char string[])
     }
 
     char *rsReg , *rtReg;
-
-    // Determine positive/negative value for immediate variable
-    if(string[16] == '1')   // negative signed binary integer for immediate
-    {
-        immediate = immediate * -1;
-    }   // else do nothing, leave it as positive integer
 
     // retrieve valid opcode operation from opcode
     for(k = 0; k < 11; k++)
@@ -130,9 +124,9 @@ int verifyIformat(int opcode, int rs, int rt, int immediate)
             return 0;
         }
     }
-    // Verification for immediate, has to be in range -32,768 - 32,767
+    // Verification for immediate, has to be in range 0 <= immediate < 65536 
     // Logic for immediate variable only considers positive values 
-    if (immediate > 32768)
+    if (immediate > 65535)
     {
         return 0;
     }
