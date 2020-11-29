@@ -2,7 +2,15 @@
 
 ## Created by: Nikhil Sodemba
 
-Welcome to the Disassembler Program. This program is intended to parse valid MIPS Instruction into its corresponding format type and validate whether or not, that instruction is correct.
+### Refer to this project for educational purposes only
+
+The following link is the instructions needed to carry out the functionality of this project: [Disassembler Programming Project](https://www.cs.kzoo.edu/cs230/Projects/DisassemblerProj.html)
+
+Marks received for project: 92.5/99.0 (93.43%)
+
+### Welcome to the Disassembler Program
+
+This program is intended to parse valid MIPS Instruction into its corresponding format type and validate whether or not, that instruction is correct.
 
 Each MIPS Instruction is 32-bits long, and will be parsed into one of the three format types: R-Format, I-Format, and J-Format. The opcode (first 6 bits) of the MIPS Instruction showcases which format type the Instruction belongs to, if the opcode is invalid, the proper Error Handling logic will print the appropriate error to stderr.
 
